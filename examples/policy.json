@@ -1,0 +1,108 @@
+{
+  "policyId": "sample-library",
+  "title": "Sample library policy",
+  "context": "Which matching rule determines the result in the existing service?",
+  "defaultDecision": "deny",
+  "dimensions": {
+    "principals": [
+      {
+        "id": "staff",
+        "label": "Staff"
+      },
+      {
+        "id": "visitor",
+        "label": "Visitor"
+      }
+    ],
+    "resources": [
+      {
+        "id": "manual",
+        "label": "Manual"
+      },
+      {
+        "id": "notes",
+        "label": "Notes"
+      }
+    ],
+    "actions": [
+      {
+        "id": "read",
+        "label": "Read"
+      },
+      {
+        "id": "edit",
+        "label": "Edit"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "read_all",
+      "label": "Read public library",
+      "match": {
+        "principals": [
+          "staff",
+          "visitor"
+        ],
+        "resources": [
+          "manual",
+          "notes"
+        ],
+        "actions": [
+          "read"
+        ]
+      },
+      "decision": "allow"
+    },
+    {
+      "id": "private",
+      "label": "Restrict visitor notes",
+      "match": {
+        "principals": [
+          "visitor"
+        ],
+        "resources": [
+          "notes"
+        ],
+        "actions": [
+          "read",
+          "edit"
+        ]
+      },
+      "decision": "deny"
+    },
+    {
+      "id": "staff_edit",
+      "label": "Staff edits",
+      "match": {
+        "principals": [
+          "staff"
+        ],
+        "resources": [
+          "manual",
+          "notes"
+        ],
+        "actions": [
+          "edit"
+        ]
+      },
+      "decision": "allow"
+    },
+    {
+      "id": "visitor_read",
+      "label": "Visitor manuals",
+      "match": {
+        "principals": [
+          "visitor"
+        ],
+        "resources": [
+          "manual"
+        ],
+        "actions": [
+          "read"
+        ]
+      },
+      "decision": "allow"
+    }
+  ]
+}
